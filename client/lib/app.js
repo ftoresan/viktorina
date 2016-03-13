@@ -1,0 +1,1 @@
+angular.module('viktorina', ['angular-meteor', 'ui.router']);
