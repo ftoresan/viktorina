@@ -1,1 +1,1 @@
-angular.module('viktorina', ['angular-meteor', 'ui.router']);
+angular.module('viktorina', ['angular-meteor', 'ui.router', 'ui.bootstrap']);

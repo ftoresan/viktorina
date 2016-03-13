@@ -1,1 +1,7 @@
-<p>Quizzes are created, deleted, etc. here</p>
+<div class="row">
+	<button class="btn btn-default" ng-click="manageQuiz.createQuiz()">Create quiz</button>
+	<hr>
+	<accordion close-others=false>
+		<accordion-group ng-repeat="quiz in manageQuiz.quizzes" heading={{quiz.title}}>{{quiz.description}}</accordion-group>
+	</accordion>
+</div>

@@ -5,6 +5,10 @@ angular.module('viktorina').config(function ($urlRouterProvider, $stateProvider,
 	.state('manage', {
 		url : '/manage',
 		template : '<quiz-manage></quiz-manage>'
+	})
+	.state('edit', {
+		url: '/edit',
+		template: '<quiz-edit></quiz-edit>'
 	});
 	
 	$urlRouterProvider.otherwise('/manage');

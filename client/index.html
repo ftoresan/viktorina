@@ -2,5 +2,17 @@
 	<base href="/">
 </head>
 <body ng-app='viktorina'>
-	<div ui-view=""></div>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">viktorina</a>
+			</div>
+			<div class="navbar-right-container">
+				<login-buttons></login-buttons>
+			</div>
+		</div>
+	</nav>
+	<div>
+		<div ui-view class="container-fluid"></div>
+	</div>
 </body>
