@@ -1,7 +1,14 @@
 <div class="row">
-	<button class="btn btn-default" ng-click="manageQuiz.createQuiz()">Create quiz</button>
-	<hr>
-	<accordion close-others=false>
-		<accordion-group ng-repeat="quiz in manageQuiz.quizzes" heading={{quiz.title}}>{{quiz.description}}</accordion-group>
-	</accordion>
+	<div class="col-md-12 col-sm-6">
+		<button class="btn btn-default" ng-click="manageQuiz.createQuiz()">Create quiz</button>
+		<hr>
+		<accordion close-others=false>
+			<accordion-group ng-repeat="quiz in manageQuiz.quizzes" heading={{quiz.title}}>				
+				<button class="btn btn-danger pull-right" ng-click="manageQuiz.deleteQuiz(quiz._id)"><span class="glyphicon glyphicon-trash" ></span></button>
+				<button class="btn btn-primary pull-right" ui-sref="edit({id: quiz._id})"><span class="glyphicon glyphicon-pencil" ></span></button>
+								
+				<span>{{quiz.description}}</span>				
+			</accordion-group>
+		</accordion>
+	</div>
 </div>

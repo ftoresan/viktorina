@@ -1,3 +1,21 @@
 <div class="row">
-	
+	<div class="col-md-12">
+		<form>
+			<div class="form-group">
+				<label for="quizTitle">Quiz title</label>
+				<input id="quizTitle" class="form-control" ng-model="editQuiz.quiz.title" />
+			</div>
+			<div class="form-group">
+				<label for="quizDescription">Quiz description</label>
+				<textarea id="quizDescription" class="form-control" ng-model="editQuiz.quiz.description"></textarea>
+			</div>
+		</form>
+		<button class="btn btn-primary" ng-click="editQuiz.save()">Save</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<h3>Questions</h3>
+	</div>
+	<div class="col-md-8"></div>
 </div>
