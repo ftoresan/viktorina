@@ -10,12 +10,28 @@
 				<textarea id="quizDescription" class="form-control" ng-model="editQuiz.quiz.description"></textarea>
 			</div>
 		</form>
-		<button class="btn btn-primary" ng-click="editQuiz.save()">Save</button>
+		<button class="btn btn-primary pull-right" ng-click="editQuiz.save()">Save</button>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-4">
 		<h3>Questions</h3>
+		<button class="btn btn-default" ng-click="editQuiz.newQuestion()">Add</button>
+		<ul>
+			<li ng-repeat="question in editQuiz.quiz.questions track by $index">
+				<p ng-click="editQuiz.selectQuestion(question)">{{question.title}}</p>
+			</li>
+		</ul>
 	</div>
-	<div class="col-md-8"></div>
+	<div class="col-md-8">
+		<div ng-if="editQuiz.currentQuestion">
+			<h2>{{editQuiz.currentQuestion.title}}</h2>
+			<div class="btn-group">
+				<label class="btn btn-info" ng-model="editQuiz.currentQuestion.type" btn-radio="'Single'" uncheckable>Single choice</label>
+				<label class="btn btn-info" ng-model="editQuiz.currentQuestion.type" btn-radio="'Multiple'" uncheckable>Multiple choice</label>
+			</div>
+			<div></div>
+			<button class="btn btn-primary" ng-click="editQuiz.addOption()">Add option</button>
+		</div>
+	</div>
 </div>

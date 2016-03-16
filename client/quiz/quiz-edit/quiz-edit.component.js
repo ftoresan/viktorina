@@ -14,6 +14,12 @@ angular.module('viktorina').directive('quizEdit', function() {
 			this.save = () => {
 				Quizzes.update({_id: this.quiz._id}, this.quiz);
 				$state.go("manage");
+			};
+			this.newQuestion = () => {
+				this.quiz.questions.push({title: "Question " + this.quiz.questions.length, type: 'Single'});
+			};
+			this.selectQuestion = (question) => {
+				this.currentQuestion = question;
 			}
 		}
 	}
