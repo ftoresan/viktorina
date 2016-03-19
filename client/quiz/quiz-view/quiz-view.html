@@ -1,9 +1,35 @@
 <div class="row">
-	<div class="col-md-4 col-md-offset-4 text-center">
-		<h2 class='header text-primary'>{{viewQuiz.quiz.title}}</h2>
-		<div class="progress">
-			<div class="progress-bar" style="width: 0%;"></div>
+	<div class="col-md-4 col-md-offset-4">
+		<div class="text-center">
+			<h2 class='header text-primary'>{{viewQuiz.quiz.title}}</h2>
+			<h4 class="header">{{viewQuiz.quiz.description}}</h4>
+			<div class="progress">
+				<div class="progress-bar" style="width: {{viewQuiz.progress}}%;"></div>
+			</div>
 		</div>
-		<button ng-click='viewQuiz.evaluate()'>Do it!</button>
+		<div ng-if="viewQuiz.currentQuestion">
+			<h3 class="header text-primary">{{viewQuiz.currentQuestion.title}}</h3>
+			<div ng-repeat="option in viewQuiz.currentQuestion.options track by $index">
+				<div ng-show="viewQuiz.currentQuestion.type == 'Single'">
+					<span class="radio radio-default">
+						<label>
+							<input type="radio" id="option.id" name="answer" ng-model="viewQuiz.currentQuestion.correct" ng-value="option.id">{{option.description}}</label>
+					</span>
+				</div>
+				<div ng-show="viewQuiz.currentQuestion.type == 'Multiple'">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="option.id" ng-model="option.correct">&nbsp;{{option.description}}</label>
+					</div>
+				</div>
+			</div>
+			<div class="text-center">
+				<button class="btn btn-primary">Check</button>
+				<button class="btn btn-default" ng-click="viewQuiz.next()">Next</button>
+			</div>	
+		</div>
+		<div class="text-center">
+			<button class="btn btn-primary" ng-click='viewQuiz.answer()' ng-if="!viewQuiz.currentQuestion">Answer</button>
+		</div>
 	</div>
 </div>

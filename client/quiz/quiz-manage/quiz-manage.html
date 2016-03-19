@@ -4,10 +4,6 @@
 		<hr>
 		<accordion close-others=false>
 			<accordion-group ng-repeat="quiz in manageQuiz.quizzes" heading={{quiz.title}}>
-				<a ui-sref="quiz({id: quiz._id})">
-					<span>
-					Acessar quiz
-					</span></a>
 				<div class="btn-group pull-right">
 					<button class="btn btn-primary" ui-sref="edit({id: quiz._id})">
 						<i class="material-icons">edit</i>
@@ -16,7 +12,12 @@
 						<i class="material-icons">delete</i>
 					</button>
 				</div>
-				<span>{{quiz.description}}</span>
+				<div>{{quiz.description}}</div>
+				<a ui-sref="quiz({id: quiz._id})">
+					<div>
+						Answer quiz
+					</div>
+				</a>
 			</accordion-group>
 		</accordion>
 	</div>

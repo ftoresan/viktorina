@@ -23,8 +23,8 @@ angular.module('viktorina').directive('quizEdit', function() {
 					options: [{
 						// TODO: Não pode ser por índice, pois ao remover ferra tudo
 						id : uuid.v1(),
-						description: "New option"
-						
+						description: "New option",
+						correct: false						
 					}]
 				});
 				this.quiz.questions[0].correct = this.quiz.questions[0].options[0].id;
@@ -35,10 +35,12 @@ angular.module('viktorina').directive('quizEdit', function() {
 			
 			this.addOption = () => {
 				if (this.currentQuestion) {
-					this.currentQuestion.options.push({
+					var option = {
 						id: uuid.v1(),
 						description: "New option"
-					});
+					};
+					this.currentQuestion.options.push(option);
+					this.editing = option.id;
 				}	
 			};
 			
