@@ -16,21 +16,39 @@
 <div class="row">
 	<div class="col-md-4">
 		<h3>Questions</h3>
-		<button class="btn btn-default" ng-click="editQuiz.newQuestion()">Add</button>
 		<ul>
 			<li ng-repeat="question in editQuiz.quiz.questions track by $index">
 				<p ng-click="editQuiz.selectQuestion(question)">{{question.title}}</p>
 			</li>
 		</ul>
+		<a href="javascript:void(0)" class="btn btn-default btn-fab" ng-click="editQuiz.newQuestion()"><i class="material-icons">add</i></a>
 	</div>
 	<div class="col-md-8">
 		<div ng-if="editQuiz.currentQuestion">
 			<h2>{{editQuiz.currentQuestion.title}}</h2>
 			<div class="btn-group">
-				<label class="btn btn-info" ng-model="editQuiz.currentQuestion.type" btn-radio="'Single'" uncheckable>Single choice</label>
-				<label class="btn btn-info" ng-model="editQuiz.currentQuestion.type" btn-radio="'Multiple'" uncheckable>Multiple choice</label>
+				<label class="btn btn-default" ng-model="editQuiz.currentQuestion.type" btn-radio="'Single'">Single choice</label>
+				<label class="btn btn-default" ng-model="editQuiz.currentQuestion.type" btn-radio="'Multiple'">Multiple choice</label>
 			</div>
-			<div></div>
+			<div ng-repeat="option in editQuiz.currentQuestion.options track by $index">
+				<span ng-if="editQuiz.currentQuestion.type == 'Single'">
+					<div class="radio radio-default">
+						<label>
+							<input type="radio" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="option.id">
+							<input class="form-control" ng-model="option.description" />
+						</label>
+					</div>
+				</span>
+				<span ng-if="editQuiz.currentQuestion.type == 'Multiple'">
+					<input type="checkbox" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="option.id">{{option.description}}
+				</span>				
+				<span ng-if="editQuiz.currentQuestion.options.length > 1" class="glyphicon glyphicon-remove"
+				ng-click="editQuiz.removeOption($index)"></span>
+			</div>
+			<div class="radio radio-primary">
+				<label>
+					<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">Option one is this</label>
+			</div>
 			<button class="btn btn-primary" ng-click="editQuiz.addOption()">Add option</button>
 		</div>
 	</div>
