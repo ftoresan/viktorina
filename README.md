@@ -20,8 +20,8 @@ Some features that I think is nice to have.
 
 ### Types of questions
 
-* multiple choice questions
-* single choice questions
+* multiple choice
+* single choice
 * true or false
 * fill gaps
 * match words
@@ -33,4 +33,12 @@ Some features that I think is nice to have.
 
 # Technical overview
 
-*TODO, but basically angular-meteor* 
+This project uses [meteor.js](https://www.meteor.com/) with the [meteor-angular extension](http://www.angular-meteor.com/).  
+It is based on the awesome tutorial that can be found here(http://www.angular-meteor.com/tutorials/socially/).
+
+## Running the project
+
+At the project root folder just run:
+```
+meteor
+```
