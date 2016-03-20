@@ -3,12 +3,12 @@ angular.module('viktorina', ['angular-meteor'])
   
   this.evaluateQuestion = function (quizId, questionId, selectedOptions) {
     console.log("Here:" + selectedOptions);
-    var quiz = Quizzes.findOne({ _id: quizId }, {
+    var quiz = Quizzes.findOne({ _id: quizId }, { fields : {
       correct: 0, questions: {
         $elemMatch: {
           id: questionId
         }
-      }});
+      }}});
     if (!quiz) {
       // error
     } else {
@@ -16,6 +16,7 @@ angular.module('viktorina', ['angular-meteor'])
       console.log(wrong);
       
       return wrong;*/
+      console.log(quiz);
       var question = quiz.questions[0];
       if (question.type == Type.Single) {
         return [ { 
