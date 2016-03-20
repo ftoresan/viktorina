@@ -5,7 +5,7 @@ angular.module('viktorina').directive('quizEdit', function() {
 		controllerAs: 'editQuiz',
 		controller : function($scope, $reactive, $stateParams, $state) {
 			$reactive(this).attach($scope);
-			
+			this.subscribe("quizzes");
 			this.helpers({
 				quiz: () => {
 					return Quizzes.findOne({_id: $stateParams.id});
@@ -23,8 +23,7 @@ angular.module('viktorina').directive('quizEdit', function() {
 					options: [{
 						// TODO: Não pode ser por índice, pois ao remover ferra tudo
 						id : uuid.v1(),
-						description: "New option",
-						correct: false						
+						description: "New option"						
 					}]
 				});
 				this.quiz.questions[0].correct = this.quiz.questions[0].options[0].id;

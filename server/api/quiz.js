@@ -17,7 +17,6 @@ angular.module('viktorina', ['angular-meteor'])
       
       return wrong;*/
       var question = quiz.questions[0];
-      console.log(question);
       if (question.type == Type.Single) {
         return [ { 
           option: question.correct, 

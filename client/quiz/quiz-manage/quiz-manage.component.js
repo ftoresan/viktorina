@@ -5,14 +5,14 @@ angular.module('viktorina').directive('quizManage', function() {
 		controllerAs: 'manageQuiz',
 		controller : function($scope, $reactive, $state) {
 			$reactive(this).attach($scope);
-			
+			this.subscribe("quizzes");
 			this.helpers({
 				quizzes: () => {
 					return Quizzes.find({});
 				}
 			});
 			this.createQuiz = () => {
-				var id = Quizzes.insert({title: "New Quiz", questions: []});
+				var id = Quizzes.insert({title: "", questions: []});
 				$state.go('edit', {id: id});
 			};
 			this.deleteQuiz = (id) => {
