@@ -1,0 +1,11 @@
+quiz-edit .radio {
+	width: 32px;
+}
+
+quiz-edit .form-group {
+	width: 90%
+}
+
+.form-group .option-edit {
+	width: 100%
+}

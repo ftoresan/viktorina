@@ -18,9 +18,9 @@
 		<h2>
 			<p class="text-primary">Questions</p>
 		</h2>
-		<h3 ng-repeat="question in editQuiz.quiz.questions track by $index">
-			<p ng-click="editQuiz.selectQuestion(question)">{{question.title}}</p>
-		</h3>
+		<h4 ng-repeat="question in editQuiz.quiz.questions track by $index">
+			<p ng-click="editQuiz.selectQuestion(question)" class="listed-question">{{question.title}}</p>
+		</h4>
 		<a href="javascript:void(0)" class="btn btn-default btn-fab" ng-click="editQuiz.newQuestion()"><i class="material-icons">add</i></a>
 	</div>
 	<div class="col-md-4 col-md-offset-2">
@@ -35,14 +35,15 @@
 			</div>
 			<div ng-repeat="option in editQuiz.currentQuestion.options track by $index">
 				<span ng-show="editQuiz.currentQuestion.type == 'Single'">
-					<div class="form-group" ng-show="editQuiz.editing == option.id">
-						<input class="form-control" ng-model="option.description" ng-blur="editQuiz.editing = null">
-					</div>
-					<span class="radio radio-default" ng-mouseover="editQuiz.canEdit = option.id">
+					<form class="form-inline">
+					<div class="radio radio-default">
 						<label>
-							<input type="radio" id="option.id" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="option.id">{{option.description}}</label>
-						<i ng-show="editQuiz.canEdit == option.id" class="material-icons pull-right" ng-click="editQuiz.editing = option.id">edit</i>
-					</span>
+							<input type="radio" id="option.id" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="option.id"></label>
+					</div>
+					<div class="form-group" >
+						<input class="form-control option-edit" ng-model="option.description">
+					</div>
+					</form>
 				</span>
 				<span ng-show="editQuiz.currentQuestion.type == 'Multiple'">
 					<div class="checkbox">

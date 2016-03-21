@@ -16,17 +16,21 @@ angular.module('viktorina').directive('quizEdit', function() {
 				$state.go("manage");
 			};
 			this.newQuestion = () => {
-				this.quiz.questions.push({
+				var question = {
 					title: "New question", 
 					type: Type.Single, 
 					id : uuid.v1(),
 					options: [{
-						// TODO: Não pode ser por índice, pois ao remover ferra tudo
 						id : uuid.v1(),
-						description: "New option"						
+						description: ""						
+					}, {
+						id : uuid.v1(),
+						description: ""
 					}]
-				});
-				this.quiz.questions[0].correct = this.quiz.questions[0].options[0].id;
+				};
+				this.quiz.questions.push(question);
+				question.correct = question.options[0].id;
+				this.selectQuestion(question);
 			};
 			this.selectQuestion = (question) => {
 				this.currentQuestion = question;
@@ -36,10 +40,9 @@ angular.module('viktorina').directive('quizEdit', function() {
 				if (this.currentQuestion) {
 					var option = {
 						id: uuid.v1(),
-						description: "New option"
+						description: ""
 					};
 					this.currentQuestion.options.push(option);
-					this.editing = option.id;
 				}	
 			};
 			
