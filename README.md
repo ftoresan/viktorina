@@ -14,11 +14,7 @@ The word *quiz* is overused, so I chose a word with a similar meaning but in a d
 
 # Roadmap
 
-## Features
-
-Some features that I think is nice to have.
-
-### Types of questions
+## Types of questions
 
 * multiple choice
 * single choice
@@ -26,7 +22,7 @@ Some features that I think is nice to have.
 * fill gaps
 * match words
 
-### Other features
+## Other features
 
 * social account login
 * private/public quiz
