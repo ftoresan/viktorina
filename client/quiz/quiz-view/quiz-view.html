@@ -37,10 +37,11 @@
 		<div ng-if="viewQuiz.showingResults">
 			<h3 class="header text-primary">Results</h3>
 			<div ng-repeat="question in viewQuiz.quiz.questions track by $index">
-				<h5 class="text-{{question.result.result ? 'success' : 'danger'}}">{{question.title}}</h5>
-				<div ng-if="!question.result.result">
-					<p>Correct answer was: {{question.result.correct.description}}</p>
+				<h4 class="text-default}}">{{question.title}}</h4>
+				<div ng-repeat="option in question.options track by $index">
+					<p ng-class="{'text-success': option.id == question.result.correct.id, 'text-danger': option.id == question.answer && option.id != question.result.correct.id}">{{option.description}}</p>
 				</div>
+				<hr>
 			</div>
 		</div>
 		<div class="text-center">
