@@ -2,23 +2,26 @@
 	<div class="col-md-12 col-sm-6">
 		<button class="btn btn-default" ng-click="manageQuiz.createQuiz()">Create quiz</button>
 		<hr>
-		<accordion close-others=false>
-			<accordion-group ng-repeat="quiz in manageQuiz.quizzes" heading={{quiz.title}}>
-				<div class="btn-group pull-right">
-					<button class="btn btn-primary" ui-sref="edit({id: quiz._id})">
-						<i class="material-icons">edit</i>
-					</button>
-					<button class="btn btn-danger" ng-click="manageQuiz.deleteQuiz(quiz._id)">
-						<i class="material-icons">delete</i>
-					</button>
-				</div>
-				<div>{{quiz.description}}</div>
-				<a ui-sref="quiz({id: quiz._id})">
+		<div class="col-md-3" ng-repeat="quiz in manageQuiz.quizzes">
+			<div class="panel panel-default" >
+				<div class="panel-heading">{{quiz.title}}</div>
+				<div class="panel-body">
+					<div class="btn-group pull-right">
+						<button class="btn btn-primary" ui-sref="edit({id: quiz._id})">
+							<i class="material-icons">edit</i>
+						</button>
+						<button class="btn btn-danger" ng-click="manageQuiz.deleteQuiz(quiz._id)">
+							<i class="material-icons">delete</i>
+						</button>
+					</div>
+					<div>{{quiz.description}}</div>
+					<a ui-sref="quiz({id: quiz._id})">
 					<div>
 						Answer quiz
 					</div>
 				</a>
-			</accordion-group>
-		</accordion>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

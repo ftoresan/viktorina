@@ -36,20 +36,26 @@
 			<div ng-repeat="option in editQuiz.currentQuestion.options track by $index">
 				<span ng-show="editQuiz.currentQuestion.type == 'Single'">
 					<form class="form-inline">
-					<div class="radio radio-default">
+					<div class="radio radio-primary">
 						<label>
 							<input type="radio" id="option.id" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="option.id"></label>
 					</div>
 					<div class="form-group" >
 						<input class="form-control option-edit" ng-model="option.description">
-					</div>
+						<i class="material-icons pull-right">delete</i>
+					</div>					
 					</form>
 				</span>
 				<span ng-show="editQuiz.currentQuestion.type == 'Multiple'">
+					<form class="form-inline">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="option.id" ng-model="option.correct">&nbsp;{{option.description}}</label>
+							<input type="checkbox" id="option.id" ng-model="option.correct"></label>
 					</div>
+					<div class="form-group" >
+						<input class="form-control option-edit" ng-model="option.description">
+					</div>
+					</form>
 				</span>
 			</div>
 			<button class="btn btn-primary" ng-click="editQuiz.addOption()">Add option</button>

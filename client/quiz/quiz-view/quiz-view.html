@@ -10,7 +10,7 @@
 		<div class="alert alert-{{viewQuiz.answerStatus}}" ng-show="viewQuiz.answerStatus">
 			<span>{{viewQuiz.answerStatusText}}</span>
 		</div>
-		<div ng-if="viewQuiz.currentQuestion">
+		<div ng-if="viewQuiz.currentQuestion" ng-hide="viewQuiz.showingResults">
 			<h3 class="header text-primary">{{viewQuiz.currentQuestion.title}}</h3>
 			<div ng-repeat="option in viewQuiz.currentQuestion.options track by $index">
 				<div ng-show="viewQuiz.currentQuestion.type == 'Single'">
@@ -29,8 +29,18 @@
 				</div>
 			</div>
 			<div class="text-center">
-				<button class="btn btn-primary" ng-click="viewQuiz.evaluate()">Check</button>
-				<button class="btn btn-default" ng-click="viewQuiz.next()">Next</button>
+				<button class="btn btn-primary" ng-click="viewQuiz.evaluate(false)">Check</button>
+				<button class="btn btn-default" ng-click="viewQuiz.next()" ng-disabled="!viewQuiz.currentQuestion.answer" ng-hide="viewQuiz.isLast()">Next</button>
+				<button class="btn btn-default" ng-click="viewQuiz.showResults()" ng-show="viewQuiz.isLast()" ng-disabled="!viewQuiz.currentQuestion.answer">Show results</button>
+			</div>
+		</div>
+		<div ng-if="viewQuiz.showingResults">
+			<h3 class="header text-primary">Results</h3>
+			<div ng-repeat="question in viewQuiz.quiz.questions track by $index">
+				<h5 class="text-{{question.result.result ? 'success' : 'danger'}}">{{question.title}}</h5>
+				<div ng-if="!question.result.result">
+					<p>Correct answer was: {{question.result.correct.description}}</p>
+				</div>
 			</div>
 		</div>
 		<div class="text-center">

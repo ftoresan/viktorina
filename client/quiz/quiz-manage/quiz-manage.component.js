@@ -12,7 +12,7 @@ angular.module('viktorina').directive('quizManage', function() {
 				}
 			});
 			this.createQuiz = () => {
-				var id = Quizzes.insert({title: "", questions: []});
+				var id = Quizzes.insert({title: "", questions: [], createdIn: new Date()});
 				$state.go('edit', {id: id});
 			};
 			this.deleteQuiz = (id) => {

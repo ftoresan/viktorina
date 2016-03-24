@@ -3,7 +3,8 @@ quiz-edit .radio {
 }
 
 quiz-edit .form-group {
-	width: 90%
+	width: 90%;
+	margin-top: 15px;
 }
 
 .form-group .option-edit {
