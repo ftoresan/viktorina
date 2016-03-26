@@ -17,14 +17,16 @@
 					<span class="radio radio-default">
 						<label>
 							<input type="radio" id="option.id" name="answer" ng-model="viewQuiz.currentQuestion.answer" ng-value="option.id" ng-disabled="viewQuiz.answerStatus">
-							<p ng-class="{'text-primary': option.id == viewQuiz.answerCorrect}">{{option.description}}</p>
+							<p ng-class="{'text-primary': viewQuiz.isCorrect(viewQuiz.currentQuestion, option)}">{{option.description}}</p>
 						</label>
 					</span>
 				</div>
 				<div ng-show="viewQuiz.currentQuestion.type == 'Multiple'">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="option.id" ng-model="option.answer" ng-disabled="viewQuiz.answerStatus">&nbsp;{{option.description}}</label>
+							<input type="checkbox" id="option.id" ng-model="option.answer" ng-disabled="viewQuiz.answerStatus">
+							<p ng-class="{'text-primary': viewQuiz.isCorrect(viewQuiz.currentQuestion, option)}" class="view-option"> &nbsp;{{option.description}}</p>
+						</label>
 					</div>
 				</div>
 			</div>
@@ -39,7 +41,7 @@
 			<h3 class="header text-primary">Results</h3>
 			<div class="alert alert-info">
 				<strong>Quiz completed!</strong><br>
-				<span>Your final score is <strong>{{viewQuiz.finalScore}}</strong> %, and you answered <strong>{{viewQuiz.totalCorrect}}</strong> of <strong>{{viewQuiz.totalQuestions}}</strong> questions correctly.</span>
+				<span>Your final score is <strong>{{viewQuiz.finalScore}}%</strong>, and you answered <strong>{{viewQuiz.totalCorrect}}</strong> of <strong>{{viewQuiz.totalQuestions}}</strong> questions correctly.</span>
 			</div>
 			<div ng-repeat="question in viewQuiz.quiz.questions track by $index">
 				<h4 class="text-default}}">{{question.title}}</h4>

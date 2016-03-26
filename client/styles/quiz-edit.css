@@ -13,3 +13,7 @@ quiz-edit .form-group {
 .listed-question {
 	cursor: pointer;
 }
+
+.view-option {
+	display: inline-block;
+}

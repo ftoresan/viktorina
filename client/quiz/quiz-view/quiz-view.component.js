@@ -81,6 +81,9 @@ angular.module('viktorina').directive('quizView', function() {
 			};
 			
 			this.isCorrect = (question, option) => {
+				if (!question.result) {
+					return false;
+				}
 				if (question.type == Type.Single) {
 					return option.id == question.result.correct.id;
 				} else {
