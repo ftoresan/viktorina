@@ -41,7 +41,7 @@
 			<h3 class="header text-primary">Results</h3>
 			<div class="alert alert-info">
 				<strong>Quiz completed!</strong><br>
-				<span>Your final score is <strong>{{viewQuiz.finalScore}}%</strong>, and you answered <strong>{{viewQuiz.totalCorrect}}</strong> of <strong>{{viewQuiz.totalQuestions}}</strong> questions correctly.</span>
+				<span>Your final score is <strong>{{viewQuiz.finalScore}}%</strong>, you answered <strong>{{viewQuiz.totalCorrect}}</strong> of <strong>{{viewQuiz.totalQuestions}}</strong> questions correctly.</span>
 			</div>
 			<div ng-repeat="question in viewQuiz.quiz.questions track by $index">
 				<h4 class="text-default}}">{{question.title}}</h4>
