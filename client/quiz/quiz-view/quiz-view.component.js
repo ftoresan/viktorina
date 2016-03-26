@@ -38,29 +38,73 @@ angular.module('viktorina').directive('quizView', function() {
 			
 			this.evaluate = (silently) => {
 				var question = this.currentQuestion;
-				var options = question.type == Type.Single ? [question.answer] : [];
+				var options = [];
+				if (question.type == Type.Single) {
+					options = [question.answer];
+				} else {
+					options = question.options.filter(function(o) {
+						return o.answer;
+					}).map(function(o) {
+						return o.id;
+					});
+				}
 				var self = this;
 				Quiz.evaluateQuestion(this.quiz._id, question.id, options).then(function(data) {
+					
 					question.checked = true;
-					question.result = {
-						result : data[0].result,
-						correct : data[0].option
+					if (question.type == Type.Single) {
+						question.result = {
+							result : data[0].result,
+							correct : data[0].option
+						}
+						question.correct = data[0].result;
+						if (!silently) {
+							self.answerStatus = data[0].result ? "success" : "warning";
+							self.answerCorrect = data[0].option;
+							self.answerStatusText = data[0].result ? "Your answer is correct!" : "Incorrect answer";
+						} 
+					} else {
+						question.result = data;
+						var correct = data.filter(function(o) {
+							return o.result;
+						});		
+						question.correct = correct.length == data.length;
+						if (!silently) {
+							self.answerStatus = correct.length == data.length ? "success" : "warning";
+							self.answerStatusText = correct.length == data.length ? "Your answer is correct!" : "Incorrect answer";
+						}
 					}
-					if (!silently) {
-						self.answerStatus = data[0].result ? "success" : "warning";
-						self.answerCorrect = data[0].option;
-						self.answerStatusText = data[0].result ? "Your answer is correct!" : "Incorrect answer";
-					} 
+					if (self.prepResults) {
+						self.showingResults = true;
+					}
 				});
+			};
+			
+			this.isCorrect = (question, option) => {
+				if (question.type == Type.Single) {
+					return option.id == question.result.correct.id;
+				} else {
+					return question.result.find(function(element) {
+						return element.option == option.id;
+					});
+				}
+			};
+			
+			this.isWrong = (question, option) => {
+				if (question.type == Type.Single) {
+					return option.id == question.answer && !this.isCorrect(question, option);
+				} else {
+					return !this.isCorrect(question, option) && option.answer;
+				}					
 			};
 			
 			this.showResults = () => {
 				if (!this.currentQuestion.checked) {
 					this.evaluate(true);
 				}
+				this.prepResults = true;
 				this.answerStatus = null;
 				this.answerStatusText = "";
-				this.showingResults = true;
 			}
 			
 		}

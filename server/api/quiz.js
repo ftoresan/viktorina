@@ -10,12 +10,7 @@ angular.module('viktorina', ['angular-meteor'])
       }}});
     if (!quiz) {
       // error
-    } else {
-      /*var wrong = selectedOptions.diff(question.options);
-      console.log(wrong);
-      
-      return wrong;*/
-      
+    } else {     
       var question = quiz.questions[0];
       if (question.type == Type.Single) {
         return [ { 
@@ -25,9 +20,21 @@ angular.module('viktorina', ['angular-meteor'])
           result: selectedOptions.length == 1 && selectedOptions[0] == question.correct
         }]
       } else {
-        var result = [];          
+        var correct = question.options
+          .filter(function(element) {
+          return element.correct;
+          });
+          
+        console.log(correct);
+        var result = [];
+        correct.forEach(function(c) {
+          result.push({
+            option: c.id,
+            result: selectedOptions.indexOf(c.id) > -1
+          });
+        });
+        return result;
       }
-      return result;
     }
   };
 })

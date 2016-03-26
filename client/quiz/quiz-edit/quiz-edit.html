@@ -18,9 +18,8 @@
 		<h2>
 			<p class="text-primary">Questions</p>
 		</h2>
-		<h4 ng-repeat="question in editQuiz.quiz.questions track by $index">
-			<p ng-click="editQuiz.selectQuestion(question)" class="listed-question">{{question.title}}</p>
-		</h4>
+		<p ng-repeat="question in editQuiz.quiz.questions track by $index" ng-click="editQuiz.selectQuestion(question)" class="text-default listed-question"
+		ng-class="{'text-info': question.id == editQuiz.currentQuestion.id}">{{question.title}}</p>
 		<a href="javascript:void(0)" class="btn btn-default btn-fab" ng-click="editQuiz.newQuestion()"><i class="material-icons">add</i></a>
 	</div>
 	<div class="col-md-4 col-md-offset-2">
@@ -36,25 +35,28 @@
 			<div ng-repeat="option in editQuiz.currentQuestion.options track by $index">
 				<span ng-show="editQuiz.currentQuestion.type == 'Single'">
 					<form class="form-inline">
-					<div class="radio radio-primary">
-						<label>
-							<input type="radio" id="option.id" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="option.id"></label>
-					</div>
-					<div class="form-group" >
-						<input class="form-control option-edit" ng-model="option.description">
-						<i class="material-icons pull-right">delete</i>
-					</div>					
+						<div class="radio radio-primary">
+							<label>
+								<input type="radio" id="option.id" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="option.id">
+							</label>
+						</div>
+						<div class="form-group">
+							<input class="form-control option-edit" ng-model="option.description">
+						</div>
+						<i class="material-icons" ng-click="editQuiz.removeOption($index)">delete</i>
 					</form>
 				</span>
 				<span ng-show="editQuiz.currentQuestion.type == 'Multiple'">
 					<form class="form-inline">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="option.id" ng-model="option.correct"></label>
-					</div>
-					<div class="form-group" >
-						<input class="form-control option-edit" ng-model="option.description">
-					</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" id="option.id" ng-model="option.correct">
+							</label>
+						</div>
+						<div class="form-group">
+							<input class="form-control option-edit" ng-model="option.description">
+						</div>
+						<i class="material-icons" ng-click="editQuiz.removeOption($index)">delete</i>
 					</form>
 				</span>
 			</div>

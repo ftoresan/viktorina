@@ -24,13 +24,13 @@
 				<div ng-show="viewQuiz.currentQuestion.type == 'Multiple'">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="option.id" ng-model="option.answer">&nbsp;{{option.description}}</label>
+							<input type="checkbox" id="option.id" ng-model="option.answer" ng-disabled="viewQuiz.answerStatus">&nbsp;{{option.description}}</label>
 					</div>
 				</div>
 			</div>
 			<div class="text-center">
 				<button class="btn btn-primary" ng-click="viewQuiz.evaluate(false)">Check</button>
-				<button class="btn btn-default" ng-click="viewQuiz.next()" ng-disabled="!viewQuiz.currentQuestion.answer" ng-hide="viewQuiz.isLast()">Next</button>
+				<button class="btn btn-default" ng-click="viewQuiz.next()" ng-disabled="!viewQuiz.currentQuestion.answer && viewQuiz.currentQuestion.type == Type.Single" ng-hide="viewQuiz.isLast()">Next</button>
 				<button class="btn btn-default" ng-click="viewQuiz.showResults()" ng-show="viewQuiz.isLast()" ng-disabled="!viewQuiz.currentQuestion.answer">Show results</button>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 			<div ng-repeat="question in viewQuiz.quiz.questions track by $index">
 				<h4 class="text-default}}">{{question.title}}</h4>
 				<div ng-repeat="option in question.options track by $index">
-					<p ng-class="{'text-success': option.id == question.result.correct.id, 'text-danger': option.id == question.answer && option.id != question.result.correct.id}">{{option.description}}</p>
+					<p ng-class="{'text-success': viewQuiz.isCorrect(question, option), 'text-danger': viewQuiz.isWrong(question, option)}">{{option.description}}</p>
 				</div>
 				<hr>
 			</div>
