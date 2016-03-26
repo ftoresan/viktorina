@@ -75,7 +75,7 @@ angular.module('viktorina').directive('quizView', function() {
 						}
 					}
 					if (self.prepResults) {
-						self.showingResults = true;
+						self.calcResults();
 					}
 				});
 			};
@@ -98,15 +98,37 @@ angular.module('viktorina').directive('quizView', function() {
 				}					
 			};
 			
+			this.retry = () => {
+				this.quiz.questions.forEach(function(q) {
+					q.result = null;
+					q.answer = null;
+					q.correct = null;
+					q.options.forEach(function(o) {
+						o.answer = null;
+					})
+				});
+				this.prepResults = false;
+				this.showingResults = false;
+				this.answer();
+			}
+			
 			this.showResults = () => {
 				if (!this.currentQuestion.checked) {
 					this.prepResults = true;
 					this.evaluate(true);
 				} else {
-					this.showingResults = true;
+					this.calcResults();
 				}				
 				this.answerStatus = null;
 				this.answerStatusText = "";
+			};
+			
+			this.calcResults = () => {
+				this.showingResults = true;
+				this.totalQuestions = this.quiz.questions.length;
+				this.totalCorrect  = this.quiz.questions.filter(function(q) { return q.correct;}).length;
+				this.finalScore = this.totalCorrect / this.totalQuestions * 100;
+				this.finalScore = Math.round(this.finalScore * 100) / 100;
 			}
 			
 		}
