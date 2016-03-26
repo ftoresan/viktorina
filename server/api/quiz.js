@@ -19,13 +19,12 @@ angular.module('viktorina', ['angular-meteor'])
           }), 
           result: selectedOptions.length == 1 && selectedOptions[0] == question.correct
         }]
-      } else {
+      } else if (question.type == Type.Multiple) {
         var correct = question.options
           .filter(function(element) {
           return element.correct;
           });
           
-        console.log(correct);
         var result = [];
         correct.forEach(function(c) {
           result.push({
@@ -34,6 +33,11 @@ angular.module('viktorina', ['angular-meteor'])
           });
         });
         return result;
+      } else if (question.type == Type.TrueFalse) {
+        return {
+          option: question.correct,
+          result: (selectedOptions.length == 1) && (question.correct == selectedOptions[0])
+        }
       }
     }
   };

@@ -39,7 +39,7 @@ angular.module('viktorina').directive('quizView', function() {
 			this.evaluate = (silently) => {
 				var question = this.currentQuestion;
 				var options = [];
-				if (question.type == Type.Single) {
+				if (question.type == Type.Single || question.type == Type.TrueFalse) {
 					options = [question.answer];
 				} else {
 					options = question.options.filter(function(o) {
@@ -63,7 +63,7 @@ angular.module('viktorina').directive('quizView', function() {
 							self.answerCorrect = data[0].option;
 							self.answerStatusText = data[0].result ? "Your answer is correct!" : "Incorrect answer";
 						} 
-					} else {
+					} else if (question.type == Type.Multiple) {
 						question.result = data;
 						var correct = data.filter(function(o) {
 							return o.result;
@@ -72,6 +72,17 @@ angular.module('viktorina').directive('quizView', function() {
 						if (!silently) {
 							self.answerStatus = correct.length == data.length ? "success" : "warning";
 							self.answerStatusText = correct.length == data.length ? "Your answer is correct!" : "Incorrect answer";
+						}
+					} else if (question.type == Type.TrueFalse) {
+						question.result = {
+							result: data.result,
+							correct : data.option							
+						}
+						question.right = data.result;
+						if (!silently) {
+							self.answerStatus = data.result ? "success" : "warning";
+							self.answerCorrect = data.option;
+							self.answerStatusText = data.result ? "Your answer is correct!" : "Incorrect answer";
 						}
 					}
 					if (self.prepResults) {

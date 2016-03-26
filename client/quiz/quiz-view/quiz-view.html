@@ -12,7 +12,7 @@
 		</div>
 		<div ng-if="viewQuiz.currentQuestion" ng-hide="viewQuiz.showingResults">
 			<h3 class="header text-primary">{{viewQuiz.currentQuestion.title}}</h3>
-			<div ng-repeat="option in viewQuiz.currentQuestion.options track by $index">
+			<div ng-repeat="option in viewQuiz.currentQuestion.options track by $index" ng-show="viewQuiz.currentQuestion.type == 'Single' || viewQuiz.currentQuestion.type == 'Multiple'">
 				<div ng-show="viewQuiz.currentQuestion.type == 'Single'">
 					<span class="radio radio-default">
 						<label>
@@ -25,28 +25,45 @@
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" id="option.id" ng-model="option.answer" ng-disabled="viewQuiz.answerStatus">
-							<p ng-class="{'text-primary': viewQuiz.isCorrect(viewQuiz.currentQuestion, option)}" class="view-option"> &nbsp;{{option.description}}</p>
+							<p ng-class="{'text-primary': viewQuiz.isCorrect(viewQuiz.currentQuestion, option)}" class="view-option">&nbsp;{{option.description}}</p>
 						</label>
 					</div>
+				</div>
+			</div>
+			<div ng-show="viewQuiz.currentQuestion.type == 'TrueFalse'">
+				<div class="radio radio-primary">
+					<label>
+						<input type="radio" id="option.id" name="answer" ng-model="viewQuiz.currentQuestion.answer" ng-value="true">True</label>
+				</div>
+				<div class="radio radio-primary">
+					<label>
+						<input type="radio" id="option.id" name="answer" ng-model="viewQuiz.currentQuestion.answer" ng-value="false">False</label>
 				</div>
 			</div>
 			<div class="text-center">
 				<button class="btn btn-primary" ng-click="viewQuiz.evaluate(false)">Check</button>
 				<button class="btn btn-default" ng-click="viewQuiz.next()" ng-disabled="!viewQuiz.currentQuestion.answer && viewQuiz.currentQuestion.type == Type.Single"
 				ng-hide="viewQuiz.isLast()">Next</button>
-				<button class="btn btn-default" ng-click="viewQuiz.showResults()" ng-show="viewQuiz.isLast()">Show results</button>				
+				<button class="btn btn-default" ng-click="viewQuiz.showResults()" ng-show="viewQuiz.isLast()">Show results</button>
 			</div>
 		</div>
 		<div ng-if="viewQuiz.showingResults">
 			<h3 class="header text-primary">Results</h3>
 			<div class="alert alert-info">
-				<strong>Quiz completed!</strong><br>
-				<span>Your final score is <strong>{{viewQuiz.finalScore}}%</strong>, you answered <strong>{{viewQuiz.totalCorrect}}</strong> of <strong>{{viewQuiz.totalQuestions}}</strong> questions correctly.</span>
+				<strong>Quiz completed!</strong>
+				<br>
+				<span>Your final score is
+					<strong>{{viewQuiz.finalScore}}%</strong>, you answered
+					<strong>{{viewQuiz.totalCorrect}}</strong> of
+					<strong>{{viewQuiz.totalQuestions}}</strong> questions correctly.</span>
 			</div>
 			<div ng-repeat="question in viewQuiz.quiz.questions track by $index">
 				<h4 class="text-default}}">{{question.title}}</h4>
-				<div ng-repeat="option in question.options track by $index">
+				<div ng-repeat="option in question.options track by $index" ng-show="question.type != 'TrueFalse'">
 					<p ng-class="{'text-success': viewQuiz.isCorrect(question, option), 'text-danger': viewQuiz.isWrong(question, option)}">{{option.description}}</p>
+				</div>
+				<div ng-show="question.type == 'TrueFalse'">
+					<p ng-class="{'text-success': viewQuiz.isCorrect(question, option), 'text-danger': viewQuiz.isWrong(question, option)}">{{question.result.correct}}</p>
 				</div>
 				<hr>
 			</div>

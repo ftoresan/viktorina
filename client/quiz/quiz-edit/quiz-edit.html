@@ -26,11 +26,12 @@
 		<div ng-if="editQuiz.currentQuestion">
 			<div class="form-group">
 				<label class="control-label" for="questionTitle">Question title</label>
-				<input class="form-control input-lg" type="text" id="questionTitle" ng-model="editQuiz.currentQuestion.title">
+				<textarea id="questionTitle" class="form-control" ng-model="editQuiz.currentQuestion.title"></textarea>
 			</div>
 			<div class="btn-group">
 				<label class="btn btn-default" ng-model="editQuiz.currentQuestion.type" btn-radio="'Single'">Single choice</label>
 				<label class="btn btn-default" ng-model="editQuiz.currentQuestion.type" btn-radio="'Multiple'">Multiple choice</label>
+				<label class="btn btn-default" ng-model="editQuiz.currentQuestion.type" btn-radio="'TrueFalse'">True or False</label>
 			</div>
 			<div ng-repeat="option in editQuiz.currentQuestion.options track by $index">
 				<span ng-show="editQuiz.currentQuestion.type == 'Single'">
@@ -60,7 +61,21 @@
 					</form>
 				</span>
 			</div>
-			<button class="btn btn-primary" ng-click="editQuiz.addOption()">Add option</button>
+			<div ng-show="editQuiz.currentQuestion.type == 'TrueFalse'">
+				<form>
+					<div class="radio radio-primary">
+						<label>
+							<input type="radio" id="option.id" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="true">True
+						</label>
+					</div>
+					<div class="radio radio-primary">
+						<label>
+							<input type="radio" id="option.id" name="answer" ng-model="editQuiz.currentQuestion.correct" ng-value="false">False
+						</label>
+					</div>
+				</form>
+			</div>
+			<button class="btn btn-primary" ng-click="editQuiz.addOption()" ng-show="editQuiz.currentQuestion.type == 'Single' || editQuiz.currentQuestion.type == 'Multiple'">Add option</button>
 		</div>
 	</div>
 </div>
