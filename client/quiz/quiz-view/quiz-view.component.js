@@ -57,7 +57,7 @@ angular.module('viktorina').directive('quizView', function() {
 							result : data[0].result,
 							correct : data[0].option
 						}
-						question.correct = data[0].result;
+						question.right = data[0].result;
 						if (!silently) {
 							self.answerStatus = data[0].result ? "success" : "warning";
 							self.answerCorrect = data[0].option;
@@ -68,7 +68,7 @@ angular.module('viktorina').directive('quizView', function() {
 						var correct = data.filter(function(o) {
 							return o.result;
 						});		
-						question.correct = correct.length == data.length;
+						question.right = correct.length == data.length;
 						if (!silently) {
 							self.answerStatus = correct.length == data.length ? "success" : "warning";
 							self.answerStatusText = correct.length == data.length ? "Your answer is correct!" : "Incorrect answer";
@@ -102,7 +102,8 @@ angular.module('viktorina').directive('quizView', function() {
 				this.quiz.questions.forEach(function(q) {
 					q.result = null;
 					q.answer = null;
-					q.correct = null;
+					q.right = false;
+					q.checked = false;
 					q.options.forEach(function(o) {
 						o.answer = null;
 					})
@@ -126,7 +127,7 @@ angular.module('viktorina').directive('quizView', function() {
 			this.calcResults = () => {
 				this.showingResults = true;
 				this.totalQuestions = this.quiz.questions.length;
-				this.totalCorrect  = this.quiz.questions.filter(function(q) { return q.correct;}).length;
+				this.totalCorrect  = this.quiz.questions.filter(function(q) { return q.right;}).length;
 				this.finalScore = this.totalCorrect / this.totalQuestions * 100;
 				this.finalScore = Math.round(this.finalScore * 100) / 100;
 			}
