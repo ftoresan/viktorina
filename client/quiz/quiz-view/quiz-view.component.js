@@ -100,9 +100,11 @@ angular.module('viktorina').directive('quizView', function() {
 			
 			this.showResults = () => {
 				if (!this.currentQuestion.checked) {
+					this.prepResults = true;
 					this.evaluate(true);
-				}
-				this.prepResults = true;
+				} else {
+					this.showingResults = true;
+				}				
 				this.answerStatus = null;
 				this.answerStatusText = "";
 			}
