@@ -95,21 +95,27 @@ angular.module('viktorina').directive('quizView', function() {
 				if (!question.result) {
 					return false;
 				}
-				if (question.type == Type.Single) {
-					return option.id == question.result.correct.id;
-				} else {
-					return question.result.find(function(element) {
-						return element.option == option.id;
-					});
+				switch (question.type) {
+					case Type.Single:
+						return option.id == question.result.correct.id;
+					case Type.Multiple:
+						return question.result.find(function(element) {
+							return element.option == option.id;
+						});
+					case Type.TrueFalse:
+						return question.result.correct == option;	 
 				}
 			};
 			
 			this.isWrong = (question, option) => {
-				if (question.type == Type.Single) {
-					return option.id == question.answer && !this.isCorrect(question, option);
-				} else {
-					return !this.isCorrect(question, option) && option.answer;
-				}					
+				switch (question.type) {
+					case Type.Single:
+						return option.id == question.answer && !this.isCorrect(question, option);
+					case Type.Multiple:
+						return !this.isCorrect(question, option) && option.answer;
+					case Type.TrueFalse:
+						return option == question.answer && !this.isCorrect(question, option);	 
+				}
 			};
 			
 			this.retry = () => {

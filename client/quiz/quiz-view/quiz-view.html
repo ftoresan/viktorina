@@ -63,7 +63,8 @@
 					<p ng-class="{'text-success': viewQuiz.isCorrect(question, option), 'text-danger': viewQuiz.isWrong(question, option)}">{{option.description}}</p>
 				</div>
 				<div ng-show="question.type == 'TrueFalse'">
-					<p ng-class="{'text-success': viewQuiz.isCorrect(question, option), 'text-danger': viewQuiz.isWrong(question, option)}">{{question.result.correct}}</p>
+					<p ng-class="{'text-success': viewQuiz.isCorrect(question, true), 'text-danger': viewQuiz.isWrong(question, true)}">True</p>
+					<p ng-class="{'text-success': viewQuiz.isCorrect(question, false), 'text-danger': viewQuiz.isWrong(question, false)}">False</p>
 				</div>
 				<hr>
 			</div>
