@@ -48,6 +48,14 @@ angular.module('viktorina').directive('quizEdit', function() {
 			
 			this.removeOption = (index) => {
 				this.currentQuestion.options.splice(index, 1);
+			};
+			
+			this.deleteQuestion = () => {
+				var index = this.quiz.questions.indexOf(this.currentQuestion);
+				if (index > -1) {
+					this.quiz.questions.splice(index, 1);
+				}
+				this.currentQuestion = null;
 			}
 		}
 	}

@@ -58,7 +58,7 @@
 					<strong>{{viewQuiz.totalQuestions}}</strong> questions correctly.</span>
 			</div>
 			<div ng-repeat="question in viewQuiz.quiz.questions track by $index">
-				<h4 class="text-default}}">{{question.title}}</h4>
+				<h4 class="text-default}}"><strong>{{question.title}}</strong></h4>
 				<div ng-repeat="option in question.options track by $index" ng-show="question.type != 'TrueFalse'">
 					<p ng-class="{'text-success': viewQuiz.isCorrect(question, option), 'text-danger': viewQuiz.isWrong(question, option)}">{{option.description}}</p>
 				</div>
